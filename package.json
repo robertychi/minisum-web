@@ -12,7 +12,13 @@
     "core-js": "^3.8.3",
     "vue": "^2.6.14",
     "vue-meta": "^2.4.0",
-    "vue-router": "^3.6.5"
+    "vue-router": "^3.6.5",
+    "pug": "^3.0.3",
+    "pug-plain-loader": "^1.1.0",
+    "vuetify": "^2.7.2",
+    "vuex": "^3.6.2",
+    "axios": "^1.10.0",
+    "@mdi/font": "^7.4.47"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -23,7 +29,10 @@
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "gh-pages": "^6.3.0",
-    "vue-template-compiler": "^2.6.14"
+    "vue-template-compiler": "^2.6.14",
+    "@prettier/plugin-pug": "^3.4.0",
+    "prettier": "^3.6.2",
+    "vuetify-loader": "^1.9.2"
   },
   "eslintConfig": {
     "root": true,
