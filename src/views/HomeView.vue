@@ -1,5 +1,11 @@
-<template>
-  <p>Home</p>
+<template lang="pug">
+  v-app
+    v-main
+      v-container(fluid)
+          v-row(dense)
+            v-col(cols="12")
+              v-btn(text) test3234343
+              v-icon mdi-home
 </template>
 <script>
 export default {
