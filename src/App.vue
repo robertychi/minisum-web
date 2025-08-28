@@ -1,16 +1,20 @@
 <template lang="pug">
-  v-app
-    v-main
-      v-container(fluid)
-          v-row(dense)
-            v-col(cols="12")
-              v-btn(color="blue") test323434342343
-              v-icon mdi-home
+  router-view
 </template>
 
 <script>
 export default {
   name: "App",
+  metaInfo: {
+    // favicon.ico
+    link: [
+      {
+        rel: "icon",
+        type: "image/png",
+        href: "icons/icon.ico",
+      },
+    ],
+  },
 };
 </script>
 
