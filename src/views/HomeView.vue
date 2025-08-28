@@ -4,14 +4,14 @@
       v-container(fluid)
           v-row(dense)
             v-col(cols="12")
-              v-btn(text) test3234343
+              v-btn(color="mainStyle") test3234343
               v-icon mdi-home
 </template>
 <script>
 export default {
   metaInfo() {
     return {
-      title: "文章標題 - 我的網站",
+      title: "首頁 - 小商. - minisum ",
       meta: [
         { name: "description", content: "這是一篇關於 Vue Meta 的介紹" },
         { property: "og:title", content: "文章標題 - 我的網站" },
