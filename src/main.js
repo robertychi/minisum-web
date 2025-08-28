@@ -9,6 +9,8 @@ Vue.use(VueMeta, {
 });
 
 Vue.config.productionTip = false;
+import registerComponents from "./components";
+registerComponents(Vue);
 
 new Vue({
   router,
