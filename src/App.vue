@@ -7,13 +7,13 @@ export default {
   name: "App",
   metaInfo: {
     // favicon.ico
-    link: [
-      {
-        rel: "icon",
-        type: "image/png",
-        href: "icons/icon.ico",
-      },
-    ],
+    // link: [
+    //   {
+    //     rel: "icon",
+    //     type: "image/png",
+    //     href: "icons/icon.ico",
+    //   },
+    // ],
   },
 };
 </script>
