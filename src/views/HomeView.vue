@@ -1,6 +1,5 @@
 <template lang="pug">
   v-app
-    
     // (component)
     AppBarNav
     // Main Content
@@ -15,15 +14,16 @@
               p.text-h6.grey--text.text--lighten-1.mb-10 讓您的生意管理變得更簡單、更高效，專注於業務成長與發展
               
               .d-flex.justify-center.flex-wrap.gap-4
-                v-btn(
-                  large
-                  rounded
-                  color="subStyle1"
-                  dark
-                  class="px-8 py-3 text-h6 font-weight-medium mr-4 mb-4"
-                  elevation="0"
-                  disabled
-                ) 立即下載
+                .d-flex.flex-column.align-center
+                  v-btn(
+                    large
+                    rounded
+                    color="subStyle1"
+                    dark
+                    class="px-8 py-3 text-h6 font-weight-medium mb-2"
+                    elevation="0"
+                  ) 立即下載
+                  p.body-2.grey--text.text--lighten-2 {{getDownloadText}}
                 
                 v-btn(
                   large
@@ -126,48 +126,18 @@
                     h4.text-h6.font-weight-medium.white--text.mb-2 {{ benefit.title }}
                     p.body-2.grey--text.text--lighten-1(style="line-height: 1.6") {{ benefit.description }}
 
-      // Installation Section
-      v-container.py-16
-        v-row.justify-center
-          v-col(cols="12" class="text-center mb-12")
-            h2.display-1.font-weight-medium(style="color: #2cbbb0") 快速安裝指南
-        
-        v-row.justify-center
-          v-col(cols="12" md="10" lg="8")
-            // macOS Section
-            .mb-12
-              h3.text-h4.font-weight-medium.white--text.mb-6 
-                v-icon.mr-3(color="#2cbbb0") mdi-apple
-                | macOS
-              
-              v-card(
-                color="rgba(255,255,255,0.05)"
-                flat
-                class="pa-6"
-              )
-                pre.code-block
-                  code.white--text $ brew install minisum
-            
-            // Windows Section
-            .mb-12
-              h3.text-h4.font-weight-medium.white--text.mb-6
-                v-icon.mr-3(color="#2cbbb0") mdi-microsoft-windows
-                | Windows
-              
-              v-card(
-                color="rgba(255,255,255,0.05)"
-                flat
-                class="pa-6"
-              )
-                p.body-1.grey--text.text--lighten-1 下載安裝程式 → 執行安裝程式 → 完成設定步驟
+    // Footer
+    AppFooter
+    
 </template>
 
 <script>
 export default {
-  name: "SoftwareDownloadPage",
+  name: "HomeView",
   metaInfo() {
     return {
-      title: "首頁 - MiniSum - 智慧商務管理",
+      title: "首頁 - MiniSum",
+      titleTemplate: "%s | MiniSum",
       meta: [
         {
           name: "description",
@@ -185,13 +155,14 @@ export default {
   },
   data() {
     return {
+      systemType: "other", // 預設為其他
       targetAudience: [
-        "小型零售商店",
         "網路電商賣家",
         "服務業經營者",
         "手工藝品創作者",
         "工作室經營者",
         "個人創業家",
+        "小型製造業",
       ],
       features: [
         {
@@ -204,7 +175,7 @@ export default {
         {
           icon: "mdi-gesture-tap",
           iconColor: "#2cbbb0",
-          title: "極簡操作體驗",
+          title: "簡單操作體驗",
           description: "化繁為簡的操作流程，將複雜的商務管理變成簡單的點擊動作",
         },
         {
@@ -241,6 +212,40 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    getDownloadText() {
+      if (this.systemType === "mac") return "支援 MacOS(Apple silicon)";
+      if (this.systemType === "windows") return "支援 Windows 10以上系統";
+      return "目前不技援該系統，持續開發中，請期待";
+    },
+    getDownloadLink() {
+      if (this.systemType === "mac") return "/downloadMacView";
+      if (this.systemType === "windows") return "/downloadWindowsView";
+      return null;
+    },
+    getIsDownloadDisabled() {
+      return this.systemType === "other";
+    },
+  },
+  mounted() {
+    let ua = "";
+
+    // 先嘗試用新的 API
+    if (navigator.userAgentData && navigator.userAgentData.platform) {
+      ua = navigator.userAgentData.platform.toLowerCase();
+    } else {
+      // fallback: 用舊的 userAgent
+      ua = navigator.userAgent.toLowerCase();
+    }
+
+    if (ua.includes("mac")) {
+      this.systemType = "mac";
+    } else if (ua.includes("win")) {
+      this.systemType = "windows";
+    } else {
+      this.systemType = "other";
+    }
   },
 };
 </script>
@@ -292,7 +297,8 @@ export default {
 .hero-section .v-row,
 .hero-section .v-col {
   position: relative;
-  z-index: 1;
+  z-index: 3;
+  cursor: default;
 }
 
 /* Smooth transition between hero and content */
