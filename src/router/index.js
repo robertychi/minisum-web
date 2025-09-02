@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import RootView from "@/views/RootView.vue";
 import HomeView from "@/views/HomeView.vue";
 import DownloadView from "@/views/DownloadView.vue";
+import FaqView from "@/views/FaqView.vue";
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,11 @@ const routes = [
         path: "Download",
         component: DownloadView,
         name: "DownloadView",
+      },
+      {
+        path: "Faq",
+        component: FaqView,
+        name: "FaqView",
       },
     ],
   },
