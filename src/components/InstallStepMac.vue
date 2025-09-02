@@ -1,8 +1,6 @@
 <template lang="pug">
 .install-step-mac.mb-12
-  h3.text-h4.font-weight-medium.white--text.mb-6 
-    v-icon.mr-3(color="#2cbbb0") mdi-apple
-    | macOS 安裝步驟
+  h3.text-h4.font-weight-medium.white--text.mb-6  macOS 安裝步驟
 
   v-expansion-panels(
     v-model="activePanel"
