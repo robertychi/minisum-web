@@ -137,7 +137,7 @@ export default {
   metaInfo() {
     return {
       title: "首頁 - MiniSum",
-      titleTemplate: "%s | MiniSum",
+      titleTemplate: "%s | 小商.",
       meta: [
         {
           name: "description",
