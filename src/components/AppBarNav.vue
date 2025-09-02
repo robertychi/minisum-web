@@ -30,6 +30,7 @@ export default {
       navItems: [
         { title: "首頁", route: "HomeView" },
         { title: "下載程式", route: "DownloadView" },
+        { title: "常見問題", route: "FaqView" },
         // { title: "安裝指南", route: "InstallGuide" },
         // { title: "常見問題", route: "FAQ" },
         // { title: "關於我們", route: "About" },
