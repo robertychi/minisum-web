@@ -24,6 +24,32 @@
                   flat
                   class="pa-6"
                 )
+                  .mb-4
+                    h4.text-h6.font-weight-medium.white--text.mb-4 選擇您的作業系統
+                    
+                    .d-flex.justify-center.flex-wrap.gap-4.mb-4
+                      v-btn(
+                        large
+                        rounded
+                        :color="systemType === 'mac' ? '#2cbbb0' : 'transparent'"
+                        :outlined="systemType !== 'mac'"
+                        dark
+                        class="px-6 py-2 text-subtitle-1 font-weight-medium"
+                        @click="selectSystem('mac')"
+                      )
+                        span(:class="systemType !== 'mac' ? 'grey--text' : 'white--text'") macOS
+                      
+                      v-btn(
+                        large
+                        rounded
+                        :color="systemType === 'windows' ? '#2cbbb0' : 'transparent'"
+                        :outlined="systemType !== 'windows'"
+                        dark
+                        class="px-6 py-2 text-subtitle-1 font-weight-medium"
+                        @click="selectSystem('windows')"
+                      )
+                        span(:class="systemType !== 'windows' ? 'grey--text' : 'white--text'") Windows
+                  
                   .d-flex.align-center.justify-center
                     v-btn(
                       large
@@ -32,14 +58,16 @@
                       dark
                       class="px-8 py-3 text-h6 font-weight-medium mr-6"
                       elevation="2"
+                      :disabled="systemType === 'other'"
                       @click="startDownload"
                     ) 
                       v-icon.mr-2 mdi-download
-                      | 下載程式
+                      | 免費下載 
                     
                     .d-flex.align-center
                       v-icon.mr-2(color="#2cbbb0" size="20") mdi-check-circle
                       span.body-1.grey--text.text--lighten-1 {{ getSupportText }}
+                v-alert(type="info" outlined).mt-6.text-left 筆數不限、無限使用
 
       // Installation Section
       .section-transition
@@ -197,29 +225,60 @@ export default {
     },
   },
   mounted() {
-    let ua = "";
-
-    // 先嘗試用新的 API
-    if (navigator.userAgentData && navigator.userAgentData.platform) {
-      ua = navigator.userAgentData.platform.toLowerCase();
-    } else {
-      // fallback: 用舊的 userAgent
-      ua = navigator.userAgent.toLowerCase();
-    }
-
-    if (ua.includes("mac")) {
-      this.systemType = "mac";
-    } else if (ua.includes("win")) {
-      this.systemType = "windows";
-    } else {
-      this.systemType = "other";
-    }
+    this.detectUserSystem();
   },
   methods: {
-    startDownload() {
-      // 在這裡處理實際的下載邏輯
-      console.log("開始下載:", this.getDownloadFileName);
-      // 例如：window.location.href = '/download/' + this.getDownloadFileName;
+    selectSystem(system) {
+      this.systemType = system;
+    },
+    detectUserSystem() {
+      let ua = "";
+
+      // 先嘗試用新的 API
+      if (navigator.userAgentData && navigator.userAgentData.platform) {
+        ua = navigator.userAgentData.platform.toLowerCase();
+      } else {
+        // fallback: 用舊的 userAgent
+        ua = navigator.userAgent.toLowerCase();
+      }
+
+      if (ua.includes("mac")) {
+        this.systemType = "mac";
+      } else if (ua.includes("win")) {
+        this.systemType = "windows";
+      } else {
+        this.systemType = "other";
+      }
+    },
+    mounted() {
+      let ua = "";
+
+      // 先嘗試用新的 API
+      if (navigator.userAgentData && navigator.userAgentData.platform) {
+        ua = navigator.userAgentData.platform.toLowerCase();
+      } else {
+        // fallback: 用舊的 userAgent
+        ua = navigator.userAgent.toLowerCase();
+      }
+
+      if (ua.includes("mac")) {
+        this.systemType = "mac";
+      } else if (ua.includes("win")) {
+        this.systemType = "windows";
+      } else {
+        this.systemType = "other";
+      }
+    },
+    methods: {
+      startDownload() {
+        if (this.systemType === "other") {
+          alert("請先選擇您的作業系統");
+          return;
+        }
+        // 在這裡處理實際的下載邏輯
+        console.log("開始下載:", this.getDownloadFileName);
+        // 例如：window.location.href = '/download/' + this.getDownloadFileName;
+      },
     },
   },
 };
